@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const connectToDB = (uri) =>{
     mongoose.connect(uri)
     .then(()=>{
-        console.log('Connection Successful');
+        console.log('Connection Successful',uri);
     })
     .catch((err)=>{
         console.log("No Connection");
