@@ -187,7 +187,12 @@ async function adminLogin(req,res){
             })
         }
         const token = jwt.sign(secretKey,process.env.JWT_SECRET);
-        res.cookie('admintoken',token);
+        res.cookie("admintoken", token, {
+          httpOnly: true,
+          secure: true,           
+          sameSite: "None",     
+          maxAge: 7 * 24 * 60 * 60 * 1000 
+        });
         return res.status(200).json({
             msg : "Admin has successfully logged In",
             token : token

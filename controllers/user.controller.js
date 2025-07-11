@@ -77,7 +77,12 @@ async function registerUser(req, res) {
     );
 
     // Set token cookie
-    res.cookie("token", token);
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,           
+        sameSite: "None",     
+        maxAge: 7 * 24 * 60 * 60 * 1000 
+    });
 
     // Send response
     return res.status(201).json({
@@ -123,7 +128,12 @@ async function loginUser(req,res){
             })
         }
         const token = jwt.sign({_id: user._id},process.env.JWT_SECRET,{expiresIn : '24h'});
-        res.cookie('token',token);
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,           
+            sameSite: "None",     
+            maxAge: 7 * 24 * 60 * 60 * 1000 
+        });
         return res.status(200).json({
             msg : `Welcome back ${user.name}`,
             user : user,
