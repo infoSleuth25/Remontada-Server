@@ -209,7 +209,7 @@ async function adminLogin(req,res){
 async function adminLogout(req,res){
     try{
         const token = req.cookies.admintoken;
-        res.clearCookie('admintoken');
+        res.clearCookie(token);
         res.status(200).json({
             msg : "Logged out"
         })
